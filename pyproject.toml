@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "ai-assistant"
+version = "0.0.1"
+description = "AI Assistant"
+authors = ["Andrei Gavrila <andrei.gavrila@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.9.7 || >3.9.7,<4.0"
+loguru = "^0.7.2"
+streamlit = "^1.32.1"
+langchain = "^0.1.11"
+langchain-community = "^0.0.27"
+langchainhub = "^0.1.15"
+boto3 = "^1.34.60"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

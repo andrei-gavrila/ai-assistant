@@ -2,7 +2,7 @@
 	"name": "weastur/poetry:1.8.3-python-3.9.19-bookworm",
 	"image": "weastur/poetry:1.8.3-python-3.9.19-bookworm",
 
-    "postCreateCommand": "poetry install",
+    "postCreateCommand": "poetry config virtualenvs.in-project true && poetry install",
 
 	"customizations": {
         "vscode": {
