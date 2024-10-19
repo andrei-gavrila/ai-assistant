@@ -53,3 +53,5 @@ The cotainer used above has support for multiple architectures: https://hub.dock
 ### Visual Studio Code
 
 Download and install the proper version based on your environment: https://code.visualstudio.com/Download.
+
+Based on the used development setup (local or remote) the following plugins are required: **Dev Containers** (local and remote) and **Remote - SSH** (only for remote).
