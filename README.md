@@ -98,7 +98,7 @@ poetry install
 
 Note: On certain conditions, **Visual Studio Code** doesn't detect the proper **Python** interpreter (eg. packages are not recognized). If this happens, select the interpreter in the ```.venv``` folder by clicking the correspnding entry in the footer file on the bottom right side of the **Visual Studio Code** window while a **Python** file is opened.
 
-To run the application simply used the defined launch configuration. Alternatevly, the application can also be started from the **Terminal**:
+To run the application simply use the defined launch configuration - this has full debugging support (breakpoints, variables, ...). Alternatevly, the application can also be started from the **Terminal** (without debugging support):
 
 ```bash
 poetry run streamlit run main.py
