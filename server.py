@@ -2,6 +2,22 @@ import streamlit as st
 
 st.title("AI Assistant :monkey:")
 
+light_bedroom = st.toggle(key = "light_bedroom", label = "Bedroom Light")
+color_bedroom = st.color_picker("Bedroom Light Color", "#0000ff")
+light_kitchen = st.toggle(key = "light_kitchen", label = "Kitchen Light")
+
+if light_bedroom:
+    st.write("Bedroom Light ON")
+else:
+    st.write("Bedroom Light OFF")
+
+st.write("The current Bedroom Light Color is", color_bedroom)
+
+if light_kitchen:
+    st.write("Kitchen Light ON")
+else:
+    st.write("Kitchen Light OFF")
+
 if 'chat_history' not in st.session_state:
     st.session_state.chat_history = [] 
 
