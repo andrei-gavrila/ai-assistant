@@ -60,7 +60,7 @@ Test the installation by attempting to download and run the Python Poetry docker
 docker run -it weastur/poetry:1.8.3-python-3.9.19-bookworm /bin/bash
 ```
 
-The cotainer used above has support for multiple architectures: https://hub.docker.com/r/weastur/poetry/tags.
+The container used above has support for multiple architectures: https://hub.docker.com/r/weastur/poetry/tags.
 
 ### Visual Studio Code
 
