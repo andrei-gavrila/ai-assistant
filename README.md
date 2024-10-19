@@ -42,6 +42,12 @@ EditorConfig helps maintain consistent coding styles for multiple developers wor
 
 Website: [EditorConfig](https://editorconfig.org)
 
+### GitHub
+
+The complete developer platform to build, scale, and deliver secure software.
+
+Website: [GitHub](https://github.com/about)
+
 ### GitHub Actions
 
 GitHub Actions makes it easy to automate all your software workflows, now with world-class CI/CD. Build, test, and deploy your code right from GitHub. Make code reviews, branch management, and issue triaging work the way you want.
