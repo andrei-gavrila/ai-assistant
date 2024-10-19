@@ -67,3 +67,43 @@ The container used above has support for multiple architectures: https://hub.doc
 Download and install the proper version based on your environment: https://code.visualstudio.com/Download.
 
 Based on the used development setup (local or remote) the following plugins are required: **Dev Containers** (local and remote) and **Remote - SSH** (only for remote).
+
+### Run the application
+
+Clone the project (the example uses ssh with key)
+
+```bash
+git clone git@github.com:andrei-gavrila/ai-assistant.git
+```
+
+switch to the cloned folder
+
+```bash
+cd ai-assistant
+```
+
+then open the project in Visual Studio Code
+
+```bash
+code .
+```
+
+Once **Visual Studio Code** opened the project, the **Dev Containers** extension asks to **Reopen in Container** (if the question is missed, use the command palette to trigger **Dev Containers: Reopen in Container**).
+
+The **Dev Container** contains a postcreate command to install the project dependencies. However, if a dependency is added manually (not recommended, use ```poetry add```), running this in the project root folder may be required:
+
+```bash
+poetry install
+```
+
+Note: On certain conditions, **Visual Studio Code** doesn't detect the proper **Python** interpreter (eg. packages are not recognized). If this happens, select the interpreter in the ```.venv``` folder by clicking the correspnding entry in the footer file on the bottom right side of the **Visual Studio Code** window while a **Python** file is opened.
+
+To run the application simply used the defined launch configuration. Alternatevly, the application can also be started from the **Terminal**:
+
+```bash
+poetry run streamlit run main.py
+```
+
+Note: Additional parameters may be added to the command above and in the *launch.json* configuration (base URL, server host and port, ...).
+
+Once the application is started, the port is automatically forwarded by **Visual Studio Code** and (based on configuration) a browser window is opened with the URL http://localhost:8501/ (this is the default port used by **Streamlit**).
