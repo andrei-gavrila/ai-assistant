@@ -30,6 +30,18 @@ LangChain is a framework to build with LLMs by chaining interoperable components
 
 Website: [LangChain](https://www.langchain.com)
 
+### Development Containers
+
+An open specification for enriching containers with development specific content and settings.
+
+Website: [Development Containers](https://containers.dev)
+
+### EditorConfig
+
+EditorConfig helps maintain consistent coding styles for multiple developers working on the same project across various editors and IDEs.
+
+Website: [EditorConfig](https://editorconfig.org)
+
 ## Development
 
 ### Docker Engine
