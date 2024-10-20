@@ -16,7 +16,8 @@
                 "server.py"
             ],
             "justMyCode": false,
-            "console": "integratedTerminal"
+            "console": "integratedTerminal",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }
