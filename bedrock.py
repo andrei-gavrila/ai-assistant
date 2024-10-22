@@ -52,7 +52,11 @@ class LLMInputOutputAdapter:
         elif provider == "meta":
             return response_body.get("generation")
         elif provider == "mistral":
-            return response_body.get("choices")[0].get("message").get("content")
+            output = response_body.get("choices")[0].get("message").get("content")
+            if (output.find("Thought: Do I need to use a tool?") == -1):
+                output = f"Thought: Do I need to use a tool? No\nAI: {output}"
+
+            return output
         else:
             return response_body.get("results")[0].get("outputText")
 
