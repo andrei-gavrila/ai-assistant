@@ -7,43 +7,46 @@ from langchain.chains import LLMChain
 from langchain.agents import ConversationalAgent
 from langchain.agents import AgentExecutor
 
-tools = []
+from tools.led_light_control import LEDLightControl
+
+tools = [LEDLightControl()]
 
 from langchain.agents import ConversationalAgent
 
 def create_prompt(tools):
     """  """
     _conversational_prefix = '''
-    [INST] <<SYS>>
-    You are a helpful, respectful and honest Assistant.
-    As a language model, Assistant is able to generate human-like text based on the input it receives.
-    Use the appropriate tools to fulfill the questions and tasks assigned to you by the human.
-    It is able to process and understand large amounts of text, and can use this knowledge to provide accurate and informative responses.
-    Do not generate fake and do not use your internal knowledge base to answer questions.
+You are a helpful, respectful and honest Assistant.
+As a language model, Assistant is able to generate human-like text based on the input it receives.
+Use the appropriate tools to fulfill the questions and tasks assigned to you by the human.
+It is able to process and understand large amounts of text, and can use this knowledge to provide accurate and informative responses.
+Do not generate fake and do not use your internal knowledge base to answer questions.
 
-    TOOLS:
-    ------
+TOOLS:
+------
 
-    Assistant has access to the following tools:'''
+Assistant has access to the following tools:'''
 
     _conversational_sufix = '''
-    In the "Action" please put just the name of the tool, no more strings attached.
-    Begin!
-    <</SYS>>
+Previous conversation history:
+{chat_history}
 
-    Previous conversation history:
-    {chat_history}
-
-    New input: {input}
-    {agent_scratchpad}
-    [/INST]'''
+New input: {input}
+{agent_scratchpad}'''
 
     return ConversationalAgent.create_prompt(tools, prefix = _conversational_prefix, suffix = _conversational_sufix)
 
 def conversation(input_text, chat_history):
     llm = Bedrock(
-        region_name = "us-east-1",
-        model_id = "mistral.mistral-large-2402-v1:0"
+        region_name = "eu-west-2",
+        model_id = "mistral.mistral-large-2402-v1:0",
+        model_kwargs = {
+            "max_tokens": 8192,
+            "top_p": 1,
+            "stop": [],
+            "temperature": 0.7,
+            "top_k": 0
+        }
     )
 
     llm_chain = LLMChain(
@@ -61,11 +64,12 @@ def conversation(input_text, chat_history):
     agent_executor = AgentExecutor.from_agent_and_tools(
             agent = agent,
             tools = tools,
+#            handle_parsing_errors = True,
             verbose = True,
         )
 
     return agent_executor.invoke(input = {'input': input_text,
-                            'chat_history': chat_history})
+                                          'chat_history': chat_history})
 
 st.title("AI Assistant :monkey:")
 
@@ -97,7 +101,7 @@ for message in st.session_state.chat_history:
     with st.chat_message(message["role"]):
         st.markdown(message["text"])
 
-input = st.chat_input("Powered by AWS Bedrock LLAMA2")
+input = st.chat_input("Powered by AWS Bedrock")
 
 if input:
     with st.chat_message("user"):
