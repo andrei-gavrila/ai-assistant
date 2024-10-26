@@ -56,6 +56,36 @@ GitHub Actions makes it easy to automate all your software workflows, now with w
 
 Website: [GitHub Actions](https://github.com/features/actions)
 
+### AWS EC2
+
+Secure and resizable compute capacity for virtually any workload.
+
+Website: [AWS EC2](https://aws.amazon.com/pm/ec2/)
+
+### AWS Bedrock
+
+The easiest way to build and scale generative AI applications with foundation models.
+
+Website: [AWS Bedrock](https://aws.amazon.com/bedrock/)
+
+### Let's Encrypt
+
+A nonprofit Certificate Authority providing TLS certificates to 450 million websites.
+
+Website: [Let's Encrypt](https://letsencrypt.org)
+
+### Arduino IDE
+
+The open-source Arduino Software (IDE) makes it easy to write code and upload it to the board.
+
+Website: [Arduino IDE](https://www.arduino.cc/en/software)
+
+### Arduino core for ESP8266 WiFi chip
+
+This project brings support for the ESP8266 chip to the Arduino environment. It lets you write sketches, using familiar Arduino functions and libraries, and run them directly on ESP8266, with no external microcontroller required.
+
+Website: [Arduino core for ESP8266 WiFi chip](https://github.com/esp8266/Arduino)
+
 ## Development
 
 ### Docker Engine
