@@ -455,3 +455,9 @@ screen -S app
 # Attach to a named session (app)
 screen -rd app
 ```
+
+## Running locally with docker
+
+```bash
+docker run -i -t -v .:/workspaces/ai-assistant/ -p 4200:8501 weastur/poetry:1.8.3-python-3.9.19-bookworm /bin/bash -c "cd /workspaces/ai-assistant && AWS_ACCESS_KEY_ID=... AWS_SECRET_ACCESS_KEY=... poetry run streamlit run --server.enableCORS false server.py"
+```
