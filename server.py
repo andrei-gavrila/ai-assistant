@@ -84,15 +84,15 @@ with col1:
     color_bedroom = st.color_picker("Bedroom Light Color", "#0000ff")
 
     if light_bedroom:
-        led_light_control.run("bedroom, on")
+#        led_light_control.run("bedroom, on")
 
         st.write("Bedroom Light ON")
     else:
-        led_light_control.run("bedroom, off")
+#        led_light_control.run("bedroom, off")
 
         st.write("Bedroom Light OFF")
 
-    requests.get("http://192.168.1.122/set?c=" + str((int(color_bedroom[1:3], 16)*65536 + int(color_bedroom[3:5], 16)*256 + int(color_bedroom[5:7], 16))))
+#    requests.get("http://192.168.1.122/set?c=" + str((int(color_bedroom[1:3], 16)*65536 + int(color_bedroom[3:5], 16)*256 + int(color_bedroom[5:7], 16))))
 
     st.write("The current Bedroom Light Color is", color_bedroom)
 
