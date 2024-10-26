@@ -1,5 +1,7 @@
 # AI Assistant
 
+An AI Assistant written in Python that uses a web-based UI built with Streamlit in a programmatic way and an LLM to trigger actions on an array of WS2812b LEDs connected to an ESP8266.
+
 ## Overview
 
 ![Overview Diagram](docs/diagrams/overview.svg)
@@ -318,4 +320,138 @@ Thought: Do I need to use a tool? Yes
     AI: I have turned off the LED light in your bedroom, making it dark as requested.
 
 > Finished chain.
+```
+
+## Deployment on AWS EC2
+
+### Install Apache HTTPd
+
+```bash
+sudo yum install httpd mod_ssl
+sudo systemctl start httpd
+```
+
+### Configure the subdomain
+
+Create the following configuration module ```/etc/httpd/conf.modules.d/99-virtual-host.conf```:
+
+```
+<VirtualHost *:80>
+    DocumentRoot "/var/www/html"
+
+    ServerName aws.forlornly.net
+</VirtualHost>
+```
+
+After running certbot, this will change into (certbot adds automatic redirect to https):
+
+```
+<VirtualHost *:80>
+    DocumentRoot "/var/www/html"
+
+    ServerName aws.forlornly.net
+
+    RewriteEngine on
+    RewriteCond %{SERVER_NAME} =aws.forlornly.net
+    RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
+</VirtualHost>
+```
+
+Restart httpd:
+
+```bash
+sudo systemctl restart httpd
+```
+
+### Create the SSL certificate using certbot
+
+```bash
+sudo dnf install python3 augeas-libs
+sudo dnf remove certbot
+sudo python3 -m venv /opt/certbot/
+sudo /opt/certbot/bin/pip install --upgrade pip
+sudo /opt/certbot/bin/pip install certbot certbot-apache
+sudo ln -s /opt/certbot/bin/certbot /usr/bin/certbot
+
+sudo certbot --apache
+sudo certbot install --cert-name aws.forlornly.net
+
+echo "0 0,12 * * * root /opt/certbot/bin/python -c 'import random; import time; time.sleep(random.random() * 3600)' && sudo certbot renew -q" | sudo tee -a /etc/crontab > /dev/null
+```
+
+Restart httpd:
+
+```bash
+sudo systemctl restart httpd
+```
+
+### Adapt the subdomain configuration for Streamlit
+
+Make sure the websocket proxy pass is enabled as below in ```/etc/httpd/conf.modules.d/99-virtual-host-le-ssl.conf```:
+
+```
+<IfModule mod_ssl.c>
+<VirtualHost *:443>
+    DocumentRoot "/var/www/html"
+
+    ServerName aws.forlornly.net
+
+    RewriteEngine On
+    RewriteCond %{HTTP:Upgrade} =websocket
+    RewriteRule /(.*) ws://localhost:8501/$1 [P]
+    RewriteCond %{HTTP:Upgrade} !=websocket
+    RewriteRule /(.*) http://localhost:8501/$1 [P]
+
+    ProxyPassReverse / http://localhost:8501
+
+    SSLCertificateFile /etc/letsencrypt/live/aws.forlornly.net/fullchain.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/aws.forlornly.net/privkey.pem
+    Include /etc/letsencrypt/options-ssl-apache.conf
+</VirtualHost>
+</IfModule>
+```
+Restart httpd:
+
+```bash
+sudo systemctl restart httpd
+```
+
+### Install poetry and git
+
+```bash
+curl -sSL https://install.python-poetry.org | python3 -
+sudo yum install git
+```
+
+### Create key and allow access from GitHub
+
+```bash
+ssh-keygen -t ed25519
+cat ~/.ssh/id_ed25519.pub
+```
+
+Use the generated key to add it to the access keys in GitHub, then clone the project:
+
+```bash
+git clone git@github.com:andrei-gavrila/ai-assistant.git
+```
+
+### Prepare and run the application
+
+```bash
+poetry install
+AWS_ACCESS_KEY_ID=... AWS_SECRET_ACCESS_KEY=... poetry run streamlit run --server.enableCORS false server.py
+```
+
+### Use screen to keep the application running (Optional)
+
+```bash
+# List sessions
+screen -list
+
+# Create a named session (app)
+screen -S app
+
+# Attach to a named session (app)
+screen -rd app
 ```
