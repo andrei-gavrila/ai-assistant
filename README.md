@@ -2,6 +2,8 @@
 
 An AI Assistant written in Python that uses a web-based UI built with Streamlit in a programmatic way and an LLM to trigger actions on an array of WS2812b LEDs connected to an ESP8266.
 
+![Overview](docs/images/overview.png)
+
 ## Overview
 
 ![Overview Diagram](docs/diagrams/overview.svg)
