@@ -3,6 +3,8 @@ from typing import Optional
 from langchain.tools import BaseTool
 from langchain.callbacks.manager import CallbackManagerForToolRun
 
+import requests
+
 class LEDLightControl(BaseTool):
     """ LED Light Control Tool """
     name = "LEDLightControl"
@@ -22,5 +24,10 @@ class LEDLightControl(BaseTool):
 
         location = location.strip()
         status = status.strip()
+
+        if (status == "on"):
+          requests.get("http://192.168.1.122/set?b=128")
+        else:
+          requests.get("http://192.168.1.122/set?b=1")
 
         return f"The LED Light in {location} has been successfully turned {status}"
