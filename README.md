@@ -461,3 +461,18 @@ screen -rd app
 ```bash
 docker run -i -t -v .:/workspaces/ai-assistant/ -p 4200:8501 weastur/poetry:1.8.3-python-3.9.19-bookworm /bin/bash -c "cd /workspaces/ai-assistant && AWS_ACCESS_KEY_ID=... AWS_SECRET_ACCESS_KEY=... poetry run streamlit run --server.enableCORS false server.py"
 ```
+
+## Arduino dependencies
+
+Install the following library and use the default esp8266 example: ```WS2812FX```. This should also install an additional dependency: ```Adafruit NeoPixel```:
+
+```
+Downloading Adafruit NeoPixel@1.12.3
+Adafruit NeoPixel@1.12.3
+Installing Adafruit NeoPixel@1.12.3
+Installed Adafruit NeoPixel@1.12.3
+Downloading WS2812FX@1.4.4
+WS2812FX@1.4.4
+Installing WS2812FX@1.4.4
+Installed WS2812FX@1.4.4
+```
